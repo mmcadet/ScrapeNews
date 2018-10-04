@@ -5,7 +5,41 @@ body{
     width:960px;
     margin: 0 auto;
   }
-
+  #articles{
+    width:60%;
+    height:700px;
+    display:inline-block;
+    overflow: auto;
+  }
+  #notes{
+    width:30%;
+    float:right;
+  }
+  textarea, input{
+    display:block;
+    width:100%;
+    border-style:solid;
+    border-color:white;
+    border-width: 3px;
+  }
+  input{
+    height:36px;
+    font-size: 24px;
+    background-color:blue;
+    color:white;
+    font-weight:bold;
+    margin-bottom:20px;
+    width:100%;
+  }
+  textarea{
+    height:200px;
+    font-size: 18px;
+    font-weight:bold;
+    background-size: 100%;
+    background-repeat:no-repeat;
+    color:white; 
+    width:100%;
+  }
  h2, p {
     color:red;
     font-size: 20px;
@@ -15,4 +49,7 @@ body{
     font-size: 75px;
     color: red;
     margin: 5px;
+  }
+  #savenote {
+    margin-top:20px;
   }
