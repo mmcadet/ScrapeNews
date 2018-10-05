@@ -3,7 +3,6 @@ var Note = require('./Note');
 var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
-
     title: {
         type: String,
         required: true

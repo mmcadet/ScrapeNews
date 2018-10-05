@@ -1,9 +1,10 @@
 body{
-    background-image: url("news2.jpg");
-    background-attachment: auto;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTiwgFSzBKDi_XQXhvimxVS6hwQZtzE7qvdnPPBDuPuMsJncbZ");
+    background-size:100%;
     padding-top:70px;
     color: white;
   }
+
   .jumbotron{
     background-color: transparent !important;
   }
@@ -20,7 +21,7 @@ body{
   #scrape {
     margin: 8px 0px;
   }
-  #wrapper{
+  /* #wrapper{
     width:960px;
     margin: 0 auto;
   }
@@ -58,8 +59,8 @@ body{
     background-repeat:no-repeat;
     color:white; 
     width:100%;
-  }
- h2, p {
+  } */
+ h2, p, h4 {
     color:red;
     font-size: 20px;
   }
@@ -69,6 +70,6 @@ body{
     color: red;
     margin: 5px;
   }
-  #savenote {
+  /* #savenote {
     margin-top:20px;
-  }
+  } */
