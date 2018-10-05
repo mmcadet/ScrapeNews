@@ -98,6 +98,68 @@ app.get('/articles', function (req, res) {
     });
 });
 
+// OBJECT ID //
+
+app.get('/articles/:id', function (req, res) {
+
+    // QUERY MATCH from DB //
+
+    Article.findOne({ '_id': req.params.id })
+
+        // TO NOTE //
+
+        .populate('note')
+
+        // EXECUTE QUERY //
+
+        .exec(function (err, doc) {
+
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.json(doc);
+            }
+        });
+});
+
+
+// REPLACE NOTE //
+
+app.post('/articles/:id', function (req, res) {
+
+    // NEW NOTE //
+
+    var newNote = new Note(req.body);
+
+    // NEW NOTE to DB //
+
+    newNote.save(function (err, doc) {
+
+        if (err) {
+            console.log(err);
+        }
+        else {
+
+            // MATCH in DB //
+
+            Article.findOneAndUpdate({ '_id': req.params.id }, { 'note': doc._id })
+
+                // EXECUTE QUERY //
+
+                .exec(function (err, doc) {
+
+                    if (err) {
+                        console.log(err);
+                    } else {
+
+                        res.send(doc);
+                    }
+                });
+        }
+    });
+});
+
 // PORT 3000 //
 
 app.listen(3000, function () {
