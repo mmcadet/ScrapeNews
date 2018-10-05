@@ -51,7 +51,5 @@ $(document).on('click', '#savenote', function(){
 
     $('#notes').empty();
   });
-  
-
-
+  $('#titleinput').val("");
 });

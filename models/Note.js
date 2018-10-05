@@ -5,6 +5,9 @@ var NoteSchema = new Schema({
 
     title: {
         type: String
+    },
+    body: {
+        type: String
     }
 });
 
