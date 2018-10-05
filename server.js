@@ -17,6 +17,87 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static('public'));
 
+// CONFIQ MONGOOSE DB //
+
+mongoose.connect('mongodb://localhost/week18hw');
+var db = mongoose.connection;
+
+db.on('error', function (err) {
+    console.log('Mongoose Error: ', err);
+});
+
+db.once('open', function () {
+    console.log('Mongoose connection successful.');
+});
+
+// NOTES & ARTICLES //
+
+var Note = require('./models/Note.js');
+var Article = require('./models/Article.js');
+
+// ROUTES //
+
+app.get('/', function (req, res) {
+    res.send(index.html);
+});
+
+// SCRAPE WEBSIGHT //
+
+app.get('/scrape', function (req, res) {
+
+    request('http://www.app.com/', function (error, response, html) {
+        var $ = cheerio.load(html);
+        $('li data-content-id').each(function (i, element) {
+
+            // RESULTS EMPTY //
+
+            var result = {};
+
+            // PROPERTIES //
+
+            result.title = $(this).children('a').text();
+            result.link = $(this).children('a').attr('href');
+
+            // ARTICLES for RESULTS //
+
+            var entry = new Article(result);
+
+            // SAVE to DB //
+
+            entry.save(function (err, doc) {
+
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(doc);
+                }
+            });
+        });
+    });
+
+    // SCRAPE COMPLETE //
+
+    res.send("Scrape Complete");
+});
+
+// SCRAPED ARTICLES from MONGODB //
+
+app.get('/articles', function (req, res) {
+
+    // ARTICLES ARRAY //
+
+    Article.find({}, function (err, doc) {
+
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.json(doc);
+        }
+    });
+});
+
 // PORT 3000 //
 
 app.listen(3000, function () {

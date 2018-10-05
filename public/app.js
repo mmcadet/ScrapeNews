@@ -22,6 +22,9 @@ $(document).on('click', 'a', function () {
   .done(function( data ) {
     console.log(data);
 
+    $('#notes').append('<h2>' + data.title + '</h2>');
+
+    
   });
 
 
