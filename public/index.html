@@ -4,12 +4,79 @@
 <head>
     <meta charset="UTF-8">
     <title>Scrape News</title>
-    <link rel="stylesheet" href="public/style.css">
+    <style>
+        body {
+            background-color: none;
+        }
+
+        #wrapper {
+            width: 960px;
+            margin: 0 auto;
+        }
+
+        #articles {
+            width: 60%;
+            height: 700px;
+            display: inline-block;
+            overflow: auto;
+        }
+
+        #notes {
+            width: 30%;
+            float: right;
+        }
+
+        textarea,
+        input {
+            display: block;
+            width: 100%;
+            border-style: solid;
+            border-color: white;
+            border-width: 3px;
+        }
+
+        input {
+            height: 36px;
+            font-size: 24px;
+            background-color: blue;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        textarea {
+            height: 200px;
+            font-size: 18px;
+            font-weight: bold;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            color: white;
+            width: 100%;
+        }
+
+        h2,
+        p {
+            color: rgb(181, 231, 43);
+            font-size: 20px;
+        }
+
+        h1 {
+            font-family: 'Yanone Kaffeesatz', bold;
+            font-size: 75px;
+            color: white;
+            margin: 5px;
+        }
+
+        #savenote {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
-<body background="news.jpg" style="background-size:100%">
+<body background="news2.jpg" style="background-size:100%">
     <div id="wrapper">
-        <h1>All the News</h1>
+        <h1>All the News: </h1>
         <h2><i></i></h2>
         <div id="articles"></div>
         <div id="notes"></div>
