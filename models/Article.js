@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var Note = require('./Note');
 var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
@@ -7,10 +8,18 @@ var ArticleSchema = new Schema({
         type: String,
         required: true
     },
+    summary:{
+		type: String,
+		required: true
+	},
     link: {
         type: String,
         required: true
     },
+    saved: {
+		type: Boolean,
+		default: false
+	},
     note: {
         type: Schema.Types.ObjectId,
         ref: "Note"
