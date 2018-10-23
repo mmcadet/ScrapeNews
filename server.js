@@ -14,10 +14,21 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://heroku_g2k0716m:ohj3loscmufsiqgc55cmvmn1ek@ds223653.mlab.com:23653/heroku_g2k0716m", {
-    useMongoClient: true
-});
+// mongoose.connect("mongodb://heroku_g2k0716m:ohj3loscmufsiqgc55cmvmn1ek@ds223653.mlab.com:23653/heroku_g2k0716m", {
+//     useMongoClient: true
+// });
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapDB";
+
+
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB
+mongoose.Promise = Promise;
+mongoose.connect( MONGODB_URI, {
+
+  useMongoClient: true
+
+}); 
 var app = express();
 var PORT = process.env.PORT || 3000;
 var db = mongoose.connection;
@@ -77,19 +88,32 @@ app.get('/scrape', function (req, res) {
             // ARTICLES for RESULTS //
             var entry = new Article(result);
 
-            // SAVE to DB //
-            entry.save(function (err, doc) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    console.log(doc);
-                }
-            });
-        });
-        res.send("Scrape Complete");
-    });
+            Article.create(result)
+       .then(function(dbArticle) {
+         // If we were able to successfully scrape and save the Recipe, send a message to the client
+         console.log('scrape complete', dbArticle);
+       })
+       .catch(function(err) {
+         // If an error occurred, send it to the client
+         res.json(err);
+       });
+   });
 });
+});
+
+//             // SAVE to DB //
+//             entry.save(function (err, doc) {
+//                 if (err) {
+//                     console.log(err);
+//                 }
+//                 else {
+//                     console.log(doc);
+//                 }
+//             });
+//         });
+//         res.send("Scrape Complete");
+//     });
+
 
 // SCRAPED ARTICLES from MONGODB //
 app.get("/articles", function (req, res) {
