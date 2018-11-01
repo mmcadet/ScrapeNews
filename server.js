@@ -77,28 +77,36 @@ app.get("/saved", function (req, res) {
 });
 
 app.get('/scrape', function (req, res) {
-    request("https://www.nytimes.com/", function (error, response, html) {
+    console.log('--------- In Scrape ------------');
+    request("https://www.app.com/", function (error, response, html) {
         var $ = cheerio.load(html);
         $("article").each(function (i, element) {
             var result = {};
             result.title = $(this).children("h2").text();
             result.summary = $(this).children(".summary").text();
-            result.link = $(this).children("h2").children("a").attr('href');
+            //result.link = $(this).children("h2").children("a").attr('href');
+            result.link = $(this).children(".js-asset-link").text();
+
+            console.log(result, "--------------this is the scrape result ----------");
 
             // ARTICLES for RESULTS //
-            var entry = new Article(result);
+          //  var entry = new Article(result);
 
-            Article.create(result)
-       .then(function(dbArticle) {
-         // If we were able to successfully scrape and save the Recipe, send a message to the client
-         console.log('scrape complete', dbArticle);
-       })
-       .catch(function(err) {
-         // If an error occurred, send it to the client
-         res.json(err);
-       });
-   });
-});
+                        Article.create(result)
+                        .then(function(dbArticle) {
+                            // If we were able to successfully scrape and save the Recipe, send a message to the client
+                            console.log('scrape complete', dbArticle);
+                           
+                        })
+                        .catch(function(err) {
+                            console.log( err, "-------- in error -----------");
+                            // If an error occurred, send it to the client
+                            
+                        });
+             });
+        });
+
+        res.send("Scrape Completed");
 });
 
 //             // SAVE to DB //
